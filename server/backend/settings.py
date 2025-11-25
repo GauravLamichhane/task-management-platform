@@ -169,16 +169,23 @@ SIMPLE_JWT = {
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
 }
-# CORS Configuration
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://localhost:5173",  # Vite default port
-    "http://127.0.0.1:3000",
-    "http://127.0.0.1:5173",
-"https://task-management-platform-0r6h.onrender.com",
-]
+# CORS Configuration - read allowed origins from environment for flexibility in deployment
+raw_cors_origins = config(
+    "CORS_ALLOWED_ORIGINS",
+    default=(
+        "http://localhost:3000,http://localhost:5173,"
+        "http://127.0.0.1:3000,http://127.0.0.1:5173,"
+        "https://task-management-platform-fj3xpdhju-gauravlamichhanes-projects.vercel.app"
+    ),
+)
+
+CORS_ALLOWED_ORIGINS = [u.strip() for u in raw_cors_origins.split(",") if u.strip()]
 
 CORS_ALLOW_CREDENTIALS = True
+
+# CSRF trusted origins (useful when front-end is hosted on a different domain)
+raw_csrf_trusted = config("CSRF_TRUSTED_ORIGINS", default="")
+CSRF_TRUSTED_ORIGINS = [u.strip() for u in raw_csrf_trusted.split(",") if u.strip()]
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
