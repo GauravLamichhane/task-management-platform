@@ -6,7 +6,16 @@ import {
   removeTokens,
 } from "../utils/tokenStorage";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const rawApiUrl = import.meta.env.VITE_API_URL || "";
+const API_URL = (() => {
+  try {
+    const trimmed = rawApiUrl.replace(/\/$/, "");
+    if (trimmed.endsWith("/api")) return trimmed;
+    return trimmed + "/api";
+  } catch {
+    return "http://localhost:8000/api";
+  }
+})();
 
 // Create axios instance
 const api = axios.create({
