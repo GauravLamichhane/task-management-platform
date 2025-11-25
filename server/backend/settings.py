@@ -211,7 +211,8 @@ if not DEBUG:
 
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
+# Use a leading slash so static asset URLs are absolute (e.g. '/static/...')
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = []
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
