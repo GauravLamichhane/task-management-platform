@@ -13,7 +13,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
-
+if not ALLOWED_HOSTS or ALLOWED_HOSTS == ['']:
+    ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -170,22 +171,16 @@ SIMPLE_JWT = {
     'USER_ID_CLAIM': 'user_id',
 }
 # CORS Configuration - read allowed origins from environment for flexibility in deployment
-raw_cors_origins = config(
-    "CORS_ALLOWED_ORIGINS",
-    default=(
-        "http://localhost:3000,http://localhost:5173,"
-        "http://127.0.0.1:3000,http://127.0.0.1:5173,"
-        "https://task-management-platform-fj3xpdhju-gauravlamichhanes-projects.vercel.app"
-    ),
-)
+CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='').split(',')
+if not CORS_ALLOWED_ORIGINS or CORS_ALLOWED_ORIGINS == ['']:
+    CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOWED_ORIGINS = [u.strip() for u in raw_cors_origins.split(",") if u.strip()]
-
-CORS_ALLOW_CREDENTIALS = True
-
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 # CSRF trusted origins (useful when front-end is hosted on a different domain)
-raw_csrf_trusted = config("CSRF_TRUSTED_ORIGINS", default="")
-CSRF_TRUSTED_ORIGINS = [u.strip() for u in raw_csrf_trusted.split(",") if u.strip()]
+
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
