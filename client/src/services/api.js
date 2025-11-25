@@ -6,26 +6,19 @@ import {
   removeTokens,
 } from "../utils/tokenStorage";
 
-const rawApiUrl = import.meta.env.VITE_API_URL || "";
-const API_URL = (() => {
-  try {
-    const trimmed = rawApiUrl.replace(/\/$/, "");
-    if (trimmed.endsWith("/api")) return trimmed;
-    return trimmed + "/api";
-  } catch {
-    return "http://localhost:8000/api";
-  }
-})();
+const API_URL = import.meta.env.VITE_API_URL;
 
-// Create axios instance
+console.log("API URL:", API_URL); // Debug log
+
 const api = axios.create({
   baseURL: API_URL,
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true, // Important for CORS
 });
 
-// Request interceptor - attach token to every request
+// Request interceptor
 api.interceptors.request.use(
   (config) => {
     const token = getAccessToken();
@@ -39,13 +32,14 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor - handle token refresh
+// Response interceptor
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
+    console.error("API Error:", error.response?.data); // Debug log
+
     const originalRequest = error.config;
 
-    // If error is 401 and we haven't tried to refresh yet
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
@@ -62,12 +56,10 @@ api.interceptors.response.use(
           const { access } = response.data;
           setTokens(access, refreshToken);
 
-          // Retry original request with new token
           originalRequest.headers.Authorization = `Bearer ${access}`;
           return api(originalRequest);
         }
       } catch (refreshError) {
-        // Refresh failed, logout user
         removeTokens();
         window.location.href = "/login";
         return Promise.reject(refreshError);
