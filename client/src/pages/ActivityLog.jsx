@@ -105,7 +105,9 @@ const ActivityLog = () => {
                     <div className="text-gray-700 mt-2">
                       <p className="font-medium">
                         User:{" "}
-                        <span className="text-blue-600">{log.user_email}</span>
+                        <span className="text-blue-600">
+                          {log.user_name || log.user_email}
+                        </span>
                       </p>
                       {log.task_title && (
                         <p className="font-medium">

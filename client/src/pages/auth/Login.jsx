@@ -59,12 +59,12 @@ const Login = () => {
             )}
 
             <Input
-              label="Username"
+              label="Email"
               type="text"
               name="username"
               value={formData.username}
               onChange={handleChange}
-              placeholder="Enter your username"
+              placeholder="Enter your email"
               required
             />
 

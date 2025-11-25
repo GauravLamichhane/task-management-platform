@@ -61,7 +61,7 @@ const Navbar = () => {
                   <span className="text-sm text-gray-600">
                     Hello,{" "}
                     <span className="font-semibold">
-                      {user?.username || user?.email || user?.first_name}
+                      {user?.first_name || user?.username || user?.email}
                     </span>
                   </span>
                   <Button variant="outline" onClick={handleLogout}>
@@ -132,7 +132,7 @@ const Navbar = () => {
                       <div className="text-sm text-gray-600 mb-2">
                         Hello,{" "}
                         <span className="font-semibold">
-                          {user?.username || user?.email || user?.first_name}
+                          {user?.first_name || user?.username || user?.email}
                         </span>
                       </div>
                       <Button
