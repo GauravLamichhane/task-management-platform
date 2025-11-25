@@ -44,6 +44,6 @@ class RegisterSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
-    fields = ['id','email','first_name','last_name','date_joined']
+    fields = ['id','username','email','first_name','last_name','date_joined']
     #field cant be updated by user only returned
     read_only_fields = ['id','date_joined']

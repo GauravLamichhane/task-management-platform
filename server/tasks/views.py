@@ -77,9 +77,9 @@ class TaskViewSet(viewsets.ModelViewSet):
     total_tasks = queryset.count()
     completed = queryset.filter(status='Completed').count()
     pending = queryset.filter(status='Pending').count()
-    high_priority = queryset.filter(status='High').count()
-    medium_priority = queryset.filter(status='Medium').count()
-    low_priority = queryset.filter(status='Low').count()
+    high_priority = queryset.filter(priority='High').count()
+    medium_priority = queryset.filter(priority='Medium').count()
+    low_priority = queryset.filter(priority='Low').count()
 
     return Response({
             "total_tasks": total_tasks,
