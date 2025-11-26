@@ -362,6 +362,170 @@ Authorization: Bearer YOUR_ACCESS_TOKEN
 
 ---
 
+## ✅ Assignment Requirements Fulfilled
+
+### Backend Requirements (Django + DRF)
+
+#### ✅ Authentication (JWT - Mandatory)
+- [x] User Registration
+- [x] Login with JWT token generation
+- [x] Logout functionality
+- [x] Refresh Token endpoint
+- [x] All task endpoints protected with `IsAuthenticated`
+
+#### ✅ Task Management API (CRUD)
+- [x] Task model with all required fields:
+  - title (string)
+  - description (text)
+  - status (Pending/Completed)
+  - priority (Low/Medium/High)
+  - owner (ForeignKey to User)
+  - created_at, updated_at (auto timestamps)
+- [x] Only task owners can create/update/delete their tasks
+- [x] Implemented using ModelSerializer + ModelViewSet
+- [x] Clean, structured JSON responses
+
+#### ✅ Task Query Features (Mandatory)
+- [x] PageNumberPagination (10 items per page)
+- [x] Filtering by status & priority using django-filter
+- [x] Search by title using SearchFilter
+- [x] Ordering by created_at (descending)
+
+#### ✅ Analytics Endpoint
+- [x] `GET /api/tasks/summary/` endpoint implemented
+- [x] Returns:
+  - total_tasks
+  - completed
+  - pending
+  - high_priority
+  - medium_priority
+  - low_priority
+
+#### ✅ Audit Log Requirements
+- [x] AuditLog model with all required fields:
+  - user (FK to User)
+  - task (FK to Task)
+  - action (string)
+  - changed_data (JSON/Text)
+  - timestamp (DateTime)
+- [x] Actions recorded:
+  - Task Created
+  - Task Updated
+  - Task Deleted
+- [x] Implemented using Django Signals:
+  - post_save signal for create/update
+  - pre_delete signal for delete
+- [x] Audit log API endpoint (`GET /api/logs/`)
+- [x] Paginated audit log responses
+
+---
+
+### Frontend Requirements (React + Tailwind)
+
+#### ✅ Required Pages
+1. [x] **Register / Login**
+   - Form validation
+   - Error handling
+   - Secure JWT token storage
+   
+2. [x] **Dashboard (Task List)**
+   - Task list with pagination
+   - Search bar
+   - Filters for status & priority
+   - "Create New Task" button
+   
+3. [x] **Create Task Page**
+   - Form with all required fields
+   - Validation
+   
+4. [x] **Edit Task Page**
+   - Pre-filled form inputs
+   - Update status & priority
+   
+5. [x] **Analytics Page**
+   - Display summary statistics
+   - Completion rate visualization
+   - Status and priority breakdowns
+   
+6. [x] **Activity Log Page**
+   - Display audit log entries
+   - Pagination
+   - User and task information
+
+#### ✅ UI Requirements
+- [x] Fully responsive design (mobile, tablet, desktop)
+- [x] Professional UI with Tailwind CSS
+- [x] Reusable UI components (Button, Input, Card, Navbar, Loader)
+- [x] Loading states during API calls
+- [x] Success messages on operations
+- [x] Error handling and display
+
+---
+
+### Deployment (Optional - Completed ✅)
+
+- [x] Backend deployed on **Render**
+- [x] Frontend deployed on **Vercel**
+- [x] PostgreSQL database on **NeonDB**
+- [x] Live backend URL provided
+- [x] Live frontend URL provided
+- [x] Test credentials available
+
+---
+## 📖 Usage Guide
+
+### For End Users
+
+#### 1. Register an Account
+1. Navigate to the [registration page](http://task-management-platform-puce.vercel.app/register)
+2. Enter your email address
+3. Create a secure password (minimum 8 characters)
+4. Confirm your password
+5. Click "Sign Up"
+
+#### 2. Login
+1. Go to the [login page](http://task-management-platform-puce.vercel.app/login)
+2. Enter your email and password
+3. Click "Sign In"
+4. You'll be redirected to your dashboard
+
+#### 3. Create Tasks
+1. Click the **"+ Create New Task"** button on the dashboard
+2. Fill in the task details:
+   - **Title:** Brief description of the task
+   - **Description:** Detailed information
+   - **Status:** Pending or Completed
+   - **Priority:** Low, Medium, or High
+3. Click **"Create Task"**
+
+#### 4. Manage Tasks
+- **View All Tasks:** Dashboard shows all your tasks
+- **Search:** Type in the search bar to find tasks by title
+- **Filter:** 
+  - By Status (Pending/Completed)
+  - By Priority (Low/Medium/High)
+- **Edit:** Click the **"Edit"** button on any task card
+- **Delete:** Click the **"Delete"** button (confirmation required)
+
+#### 5. View Analytics
+1. Click **"Analytics"** in the navigation menu
+2. View:
+   - Total tasks count
+   - Completed vs Pending tasks
+   - Priority breakdown
+   - Completion rate percentage
+
+#### 6. Check Activity Log
+1. Click **"Activity"** in the navigation menu
+2. Review all actions performed:
+   - Task creations
+   - Task updates
+   - Task deletions
+   - Timestamps and details
+
+---
+
+
 ## Screenshots 
 
 <img width="777" height="669" alt="image" src="https://github.com/user-attachments/assets/aa3e69ff-84ff-4f60-a269-a7e3806423d2" />
